@@ -1,63 +1,57 @@
-import React, { useRef } from "react"
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useState } from "react"
+import Router from "next/router"
+import useSimpleAuth from "../auth/useAuth"
 import styles from "../styles/Login.module.css"
 
+const LoginPage = () => {
+    const [username, setUsername] = useState("")
+    const [password, setPassword] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
+    const { login } = useSimpleAuth()
 
-const Login = () => {
-    const username = useRef()
-    const password = useRef()
-    const invalidDialog = useRef()
-    const router = useRouter()
+    const handleLogin = async (event) => {
+        event.preventDefault()
 
-    const handleLogin = (e) => {
-        e.preventDefault()
-        const user = {
-            username: username.current.value,
-            password: password.current.value
+        // Check if the username and password match a user in the database
+        const response = await fetch(`http://localhost:8088/users?email=${username}&password=${password}`)
+        const users = await response.json()
+
+        if (users.length) {
+            login(users[0].id)
+            // Redirect to the home page if the login is successful
+            Router.push("/")
+        } else {
+            setErrorMessage("Invalid username or password")
         }
-        loginUser(user)
-            .then(res => {
-                if ("id" in res) {
-                    localStorage.setItem("lu_token", res.id)
-                    router.push("/")
-                }
-                else {
-                    invalidDialog.current.showModal()
-                }
-            })
     }
 
     return (
-        <main className="container--login">
-            <dialog className="dialog dialog--auth" ref={invalidDialog}>
-                <div>Username or password was not valid.</div>
-                <button className="button--close" onClick={e => invalidDialog.current.close()}>Close</button>
-            </dialog>
-            <section>
-                <form className="form--login" onSubmit={handleLogin}>
-                    <h1>Level Up</h1>
-                    <h2>Please sign in</h2>
-                    <fieldset className={styles.fieldset}>
-                        <label htmlFor="inputUsername"> Username address </label>
-                        <input ref={username} type="username" id="username" className="form-control" placeholder="Username address" required autoFocus />
-                    </fieldset>
-                    <fieldset className={styles.fieldset}>
-                        <label htmlFor="inputPassword"> Password </label>
-                        <input ref={password} type="password" id="password" className="form-control" placeholder="Password" required />
-                    </fieldset>
-                    <fieldset className={styles.fieldset} style={{
-                        textAlign: "center"
-                    }}>
-                        <button className="btn btn-1 btn-sep icon-send" type="submit">Sign In</button>
-                    </fieldset>
-                </form>
-            </section>
-            <section className="link--register">
-                <Link href="/register">Not a member yet?</Link>
-            </section>
-        </main>
+        <div className={styles.login__container}>
+            <h1>Login Page</h1>
+            <form className={styles.login__form} onSubmit={handleLogin}>
+                <label className="form-label">
+                    Username:
+                    <input className="form-input"
+                        type="text"
+                        value={username}
+                        onChange={(event) => setUsername(event.target.value)}
+                    />
+                </label>
+                <br />
+                <label>
+                    Password:
+                    <input className="form-input"
+                        type="password"
+                        value={password}
+                        onChange={(event) => setPassword(event.target.value)}
+                    />
+                </label>
+                <br />
+                <button className="login-button" type="submit">Log in</button>
+                <p style={{ color: "red" }}>{errorMessage}</p>
+            </form>
+        </div>
     )
 }
 
-export default Login
+export default LoginPage

@@ -1,8 +1,11 @@
-import Layout from "../components/layout"
-import "../styles/globals.css"
+import AuthRequired from "../components/AuthRequired";
+import Navbar from "../components/NavBar";
+import '../styles/globals.css'
 
-export default function MyApp({ Component, pageProps }) {
-    return <Layout>
+const MyApp = ({ Component, pageProps }) => {
+    return <><Navbar />
         <Component {...pageProps} />
-    </Layout>
-  }
+        </>
+}
+
+export default MyApp;

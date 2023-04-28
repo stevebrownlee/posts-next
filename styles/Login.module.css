@@ -1,31 +1,4 @@
-.h1 {
-    font-size: 2.5rem;
-}
-
-.fieldset {
-    min-width: 0;
-    padding: 1rem 0;
-    margin: 0;
-    border: 0;
-}
-
-.form--login {
-    display: inline-block;
-    margin: 0 auto;
-    text-align: left;
-}
-
-.form--login > .fieldset > input[type="email"],
-.form--login > .fieldset > input[type="password"] {
-    width: 25em;
-}
-
-.label--login {
-    width: 8rem;
-    display: inline-block;
-}
-
-.form-control {
+.form__control {
     display: block;
     width: 94%;
     height: calc(1.5em + .75rem + 2px);
@@ -38,32 +11,65 @@
     background-clip: padding-box;
     border: 1px solid #ced4da;
     border-radius: .25rem;
-    -webkit-transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    -webkit-transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
 
-.container--login {
-    text-align: center;
+.login__container {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    border: 1px solid #e0e0e0;
+    padding: 3rem 0;
 }
 
-.form--login {
-    background-size: cover;
-    background-position-x: center;
-    z-index: 1;
-    min-height: 25rem;
-    min-width: 45rem;
-    padding: 0 5rem;
-    background-color: hsla(0,0%,100%,0.75);
-    background-blend-mode: overlay;
-    background-repeat: no-repeat;
+.login__form {
+    background-color: white;
+    padding: 5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
 }
 
-.button--close {
-    position: relative;
-    bottom: -2rem;
+.form__label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
 }
 
-.dialog {
-    min-width: 15rem;
-    min-height: 5rem;
+.form__input {
+    display: block;
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.login__button {
+    display: block;
+    width: 100%;
+    background-color: #0070f3;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 0.75rem;
+    border-radius: 0.25rem;
+    border: none;
+    cursor: pointer;
+}
+
+.login__button:hover {
+    background-color: #0062cc;
+}
+
+
+
+.login__form.is-submitting {
+    transform: scale(0.95);
 }

@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import '../styles/Home.module.css'
 import { useEffect, useState } from 'react'
-import styles from './posts/Post.module.css'
+import styles from '../styles/Post.module.css'
+import '../styles/Home.module.css'
 
 
-export default function Home() {
+const Home = () => {
     const [posts, setPosts] = useState([])
 
     useEffect(
@@ -29,3 +29,5 @@ export default function Home() {
         }
     </>
 }
+
+export default Home
