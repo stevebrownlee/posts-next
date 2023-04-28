@@ -12,7 +12,7 @@ const AuthRequired = ({ children }) => {
         }
     }, [])
 
-    return <>{loggedIn && children}</>
+    return <>{children}</>
 }
 
 export default AuthRequired

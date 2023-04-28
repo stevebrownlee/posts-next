@@ -1,13 +1,23 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Router from "next/router"
 import useSimpleAuth from "../auth/useAuth"
+import { useRouter } from 'next/router'
+
 import styles from "../styles/Login.module.css"
 
 const LoginPage = () => {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
-    const { login } = useSimpleAuth()
+    const { login, loggedIn } = useSimpleAuth()
+    const router = useRouter()
+
+
+    useEffect(() => {
+        if (loggedIn) {
+            router.push("/")
+        }
+    }, [loggedIn])
 
     const handleLogin = async (event) => {
         event.preventDefault()

@@ -1,29 +1,26 @@
 import Link from "next/link";
-import AuthRequired from "./AuthRequired";
 
 const Navbar = () => {
   return (
-    <AuthRequired>
-      <nav>
-        <ul>
-          <li>
-            <Link href="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link href="/about">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link href="/contact">
-              Contact
-            </Link>
-          </li>
-        </ul>
-      </nav>
-    </AuthRequired>
+    <nav>
+      <ul className="nav">
+        <li className="nav__item">
+          <Link href="/">
+            Home
+          </Link>
+        </li>
+        <li className="nav__item">
+          <Link href="/about">
+            About
+          </Link>
+        </li>
+        <li className="nav__item">
+          <Link href="/contact">
+            Contact
+          </Link>
+        </li>
+      </ul>
+    </nav>
   );
 };
 
